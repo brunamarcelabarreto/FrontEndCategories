@@ -27,7 +27,6 @@ const editCategory = (props) => {
   }, [_id]);
 
 
-
   function onChange(event) {
     const { name, value } = event.target;
     setValues({ ...values, [name]: value });
@@ -39,8 +38,12 @@ const editCategory = (props) => {
       ? `http://localhost:3333/api/category/${_id}`
       : `http://localhost:3333/api/category`
 
-    axios[method](url, values)
-  }
+      axios[method](url, values)
+      .then((response) => {
+        window.location.reload();
+       })
+        .catch(error => { console.log(error) });
+    }
 
   return (
     <Container>
