@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Img from '../../assets/svgs/img.svg'
 
@@ -21,14 +20,12 @@ const initialValue = {
 const Category = (props) => {
   const [categories, setCategories] = useState([]);
   const [values, setValues] = useState({ initialValue })
-  const history = useHistory(); 
   const id = props.match.params._id;
 
   useEffect(() => {
     axios.get(`http://localhost:3333/api/category`)
       .then((response) => {
         setCategories(response.data);
-        console.log(response.data);
       })
       .catch(error => { console.log(error) });
   }, []);
@@ -36,6 +33,7 @@ const Category = (props) => {
   async function handleDelete(_id) {
     const response = await axios.delete(`http://localhost:3333/api/category/${_id}`)
       .catch(error => { console.log(error) });
+      window.location.reload();
   }
 
   function onChange(event) {
@@ -51,7 +49,7 @@ const Category = (props) => {
 
     axios[method](url, values)
     .then((response) => {
-      history.push('/')
+      window.location.reload();
      })
       .catch(error => { console.log(error) });
   }

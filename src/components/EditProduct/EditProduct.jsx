@@ -37,8 +37,12 @@ const editProduct = (props) => {
       ? `http://localhost:3333/api/product/${_id}`
       : `http://localhost:3333/api/product`
 
-    axios[method](url, values)
-  }
+      axios[method](url, values)
+      .then((response) => {
+        window.location.reload();
+       })
+        .catch(error => { console.log(error) });
+    }
 
   return (
     <Container>

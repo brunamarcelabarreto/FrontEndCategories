@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Img from '../../assets/svgs/img.svg';
 
@@ -25,7 +24,6 @@ const initialValue = {
 const Product = (props) => {
   const [products, setProducts] = useState([]);
   const [values, setValues] = useState({ initialValue });
-  const history = useHistory(); 
 
   const id = props.match.params._id;
 
@@ -39,7 +37,8 @@ const Product = (props) => {
 
   async function handleDelete(_id) {
     const response = await axios.delete(`http://localhost:3333/api/product/${_id}`)
-      .catch(error => { console.log(error) });
+    .catch(error => { console.log(error) });
+    window.location.reload();
   }
 
   function onChange(event) {
@@ -55,7 +54,7 @@ const Product = (props) => {
 
     axios[method](url, values)
     .then((response) => {
-      history.push('/product')
+      window.location.reload();
      })
       .catch(error => { console.log(error) });
   }
